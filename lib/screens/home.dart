@@ -14,7 +14,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final todosList = Todo.todoList();
-  final _todoController = TextEditingController();
+  TextEditingController? _textEdController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEdController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _textEdController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,7 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                           ),
                           child: TextField(
-                              controller: _todoController,
+                              controller: _textEdController,
                               decoration: const InputDecoration(
                                   hintText: 'Add a new item')))),
                   Container(
@@ -75,7 +87,7 @@ class _HomeState extends State<Home> {
                           ),
                           onPressed: () {
                             print("Add button clicked");
-                            _addToDoItem(_todoController.text);
+                            _addToDoItem(_textEdController!.text);
                           })),
                 ])),
           ],
@@ -99,18 +111,22 @@ class _HomeState extends State<Home> {
       todosList.add(Todo(id: DateTime.now().toString(), todoText: todoText));
       print(DateTime.now());
     });
-    _todoController.clear(); // clear the field after entering
+    _textEdController!.clear(); // clear the field after entering
   }
 
   _editTodoItem(final String id) {
-    final indexOfOld = todosList.map((e) => e.id).toList().indexOf(id);
-    if (indexOfOld == -1) return;
-    todosList.removeAt(indexOfOld);
-    todosList.insert(
-        indexOfOld,
-        Todo(
-          todoText: _todoController.text,
-          id: '$indexOfOld',
-        ));
+    // final indexOfOld = todosList.map((e) => e.id).toList().indexOf(id);
+    // if (indexOfOld == -1) return;
+    var todoToedit = todosList.firstWhere((el) => el.id == id,
+        orElse: () => Todo(todoText: "", id: DateTime.now().toString()));
+    print('todoToEdit, $todoToedit');
+    todoToedit.editText(_textEdController!.text);
+    // todosList.removeAt(indexOfOld);
+    // todosList.insert(
+    //     indexOfOld,
+    //     Todo(
+    //       todoText: _todoController.text,
+    //       id: '$indexOfOld',
+    //     ));
   }
 }

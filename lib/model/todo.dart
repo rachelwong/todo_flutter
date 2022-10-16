@@ -17,4 +17,9 @@ class Todo {
       Todo(id: '06', todoText: 'Dinner'),
     ];
   }
+
+  //  method to edit/change todo text
+  void editText(String newText) {
+    todoText = newText;
+  }
 }
