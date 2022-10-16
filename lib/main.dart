@@ -3,7 +3,7 @@ import 'package:test_flutter/screens/home.dart';
 import 'package:vrouter/vrouter.dart';
 
 void main() {
-  runApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
