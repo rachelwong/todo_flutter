@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/screens/home.dart';
+import 'package:test_flutter/screens/Login.dart';
 import 'package:vrouter/vrouter.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(VRouter(debugShowCheckedModeBanner: false, routes: [
+    VWidget(path: "/", widget: Login()),
+  ]));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo App',
-      home: Home(),
+      home: Home(name: "Default"),
     );
   }
 }

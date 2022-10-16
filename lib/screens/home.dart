@@ -5,7 +5,8 @@ import 'package:test_flutter/widgets/todo_item.dart';
 import '../model/todo.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.name}) : super(key: key);
+  final String name;
 
   @override
   State<Home> createState() => _HomeState();
@@ -32,8 +33,8 @@ class _HomeState extends State<Home> {
                     child: ListView(children: [
                       Container(
                           margin: const EdgeInsets.only(top: 50, bottom: 50),
-                          child: const Text('All ToDos',
-                              style: TextStyle(
+                          child: Text('Hello ${widget.name}',
+                              style: const TextStyle(
                                   fontSize: 30, fontWeight: FontWeight.w500))),
                       for (Todo todo in todosList)
                         TodoItem(
