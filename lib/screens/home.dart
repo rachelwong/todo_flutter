@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/contants/colors.dart';
 import 'package:test_flutter/widgets/todo_item.dart';
+import 'package:http/http.dart' as http;
 
 import '../model/todo.dart';
 
@@ -85,6 +86,14 @@ class _HomeState extends State<Home> {
   _handleTodoChange(Todo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
+    });
+  }
+
+  _getCatFact() {
+    setState(() {
+      Future<http.Response> fetchCatFact() {
+        return http.get(Uri.parse('https://catfact.ninja/fact?max_length=140'));
+      }
     });
   }
 
