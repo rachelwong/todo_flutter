@@ -40,7 +40,8 @@ class _HomeState extends State<Home> {
                         TodoItem(
                             todo: todo,
                             onToDoChanged: _handleTodoChange,
-                            onDeleteItem: _deleteTodoItem),
+                            onDeleteItem: _deleteTodoItem,
+                            onEditItem: _editTodoItem),
                     ]),
                   ),
                 ])),
@@ -99,5 +100,17 @@ class _HomeState extends State<Home> {
       print(DateTime.now());
     });
     _todoController.clear(); // clear the field after entering
+  }
+
+  _editTodoItem(final String id) {
+    final indexOfOld = todosList.map((e) => e.id).toList().indexOf(id);
+    if (indexOfOld == -1) return;
+    todosList.removeAt(indexOfOld);
+    todosList.insert(
+        indexOfOld,
+        Todo(
+          todoText: _todoController.text,
+          id: '$indexOfOld',
+        ));
   }
 }

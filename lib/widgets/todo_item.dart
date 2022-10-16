@@ -9,10 +9,12 @@ class TodoItem extends StatelessWidget {
       {super.key,
       required this.todo,
       required this.onToDoChanged,
-      required this.onDeleteItem});
+      required this.onDeleteItem,
+      this.onEditItem});
   final Todo todo;
   final onToDoChanged;
   final onDeleteItem;
+  final onEditItem;
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +33,42 @@ class TodoItem extends StatelessWidget {
         ),
         title: Text(todo.todoText!),
         trailing: Container(
+            width: 75,
             height: 35,
-            width: 35,
-            decoration: const BoxDecoration(
-              color: tdRed,
-            ),
-            child: IconButton(
-                color: Colors.white,
-                iconSize: 18,
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  print('Clicked on delete icon');
-
-                  onDeleteItem(todo.id);
-                })));
+            child: Row(
+              children: [
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: const BoxDecoration(
+                    color: tdBlue,
+                  ),
+                  child: IconButton(
+                      color: Colors.white,
+                      iconSize: 18,
+                      icon: Icon(Icons.edit_note),
+                      onPressed: () {
+                        print('Clicked on edit icon');
+                        onEditItem(todo.id);
+                      }),
+                ),
+                SizedBox(width: 5),
+                Container(
+                  width: 35,
+                  height: 35,
+                  decoration: const BoxDecoration(
+                    color: tdRed,
+                  ),
+                  child: IconButton(
+                      color: Colors.white,
+                      iconSize: 18,
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        print('Clicked on delete button');
+                        onDeleteItem(todo.id);
+                      }),
+                ),
+              ],
+            )));
   }
 }
