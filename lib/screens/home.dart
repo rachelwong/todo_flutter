@@ -28,7 +28,6 @@ class _HomeState extends State<Home> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Column(children: [
-                  searchBox(),
                   Expanded(
                     child: ListView(children: [
                       Container(
@@ -95,32 +94,9 @@ class _HomeState extends State<Home> {
 
   _addToDoItem(String todoText) {
     setState(() {
-      todosList.add(Todo(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          todoText: todoText));
+      todosList.add(Todo(id: DateTime.now().toString(), todoText: todoText));
+      print(DateTime.now());
     });
     _todoController.clear(); // clear the field after entering
   }
-}
-
-Widget searchBox() {
-  return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: const TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(0),
-              prefixIcon: Icon(
-                Icons.search,
-                color: tdBlack,
-                size: 20,
-              ),
-              prefixIconConstraints:
-                  BoxConstraints(maxHeight: 20, minWidth: 25),
-              border: InputBorder.none,
-              hintText: 'Search',
-              hintStyle: TextStyle(color: tdGrey))));
 }
